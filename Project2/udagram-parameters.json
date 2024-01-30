@@ -1,0 +1,21 @@
+[
+    {
+        "ParameterKey": "ProjectName",
+        "ParameterValue": "UdagramProject"
+    },
+
+    {
+        "ParameterKey": "DesiredCap",
+        "ParameterValue": "4"
+    },
+
+    {
+        "ParameterKey": "BucketName",
+        "ParameterValue": "udagram-app-bucket"
+    },
+
+    {
+        "ParameterKey": "UrlPrefix",
+        "ParameterValue": "http://"        
+    }
+]
