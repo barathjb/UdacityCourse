@@ -1,0 +1,4 @@
+flask==3.0.2 #was 2.2.2 and caused error with werkzeug
+psycopg2-binary
+flask_sqlalchemy
+# Werkzeug==2.2.2 #added by me
