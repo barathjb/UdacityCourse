@@ -1,0 +1,4 @@
+Error in Ex4 when buiding admin image due to permission issue on /tmp - added command to give permissions tp /tmp in Dockerfile
+Error in Ex4 when running admin container due to the DB_USERNAME reference missing - Hardocded the username to fix this
+Error in Ex4 when running admin container due to werkzeug version incomptibility with flask version - update the requirements file to install flask 3.0.2 instead of 2.2.2
+
