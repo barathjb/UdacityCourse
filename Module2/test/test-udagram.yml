@@ -1,0 +1,87 @@
+Description: CD12352 - Infrastructure as Code Project - Udagram
+
+Parameters:
+  ProjectName:
+    Description: The project name that will be tagged to the resources
+    Type: String
+
+  DesiredCap:
+    Type: Number
+    Description: Specifies the desired number of EC2 instances
+    Default: "4"
+
+Resources:
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    DependsOn: ServerSecGrp
+    Properties: 
+      LaunchTemplateData:
+        ImageId: ami-0c7217cdde317cfec
+        # SecurityGroupIds:
+        #   - !Ref ServerSecGrp
+        InstanceType: t2.micro
+        UserData:
+          Fn::Base64: |
+            #!/bin/bash
+            sudo apt-get update -y
+            sudo apt-get install nginx -y
+            sudo service nginx start
+            echo "This is a test message"        
+        BlockDeviceMappings:
+        - DeviceName: "/dev/sdk"
+          Ebs:
+            VolumeSize: '10'
+        NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          Groups:
+          - !GetAtt ServerSecGrp.GroupId
+        KeyName: ubuntu-key
+
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier:
+      - Fn::ImportValue: 
+          !Sub "${ProjectName}-public-subnets"
+      LaunchTemplate:
+        LaunchTemplateId: !Ref LaunchTemplate
+        Version: !GetAtt LaunchTemplate.LatestVersionNumber
+      MinSize: '1'
+      DesiredCapacity: !Ref DesiredCap
+      MaxSize: '6'
+      TargetGroupARNs:
+      - Ref: TargetGroup
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 8
+      HealthyThresholdCount: 2
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 5
+      VpcId: 
+        Fn::ImportValue:
+          Fn::Sub: "${ProjectName}-vpc-id"
+
+  ServerSecGrp:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http access to private hosts from the ALB Security Group
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-vpc-id"
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+      #   CidrIp: 122.164.85.76/32
+      # # - IpProtocol: -1
+      # #   FromPort: -1
+      # #   ToPort: -1
+        CidrIp: 0.0.0.0/0
+  

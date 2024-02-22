@@ -1,0 +1,11 @@
+[
+    {
+        "ParameterKey": "ProjectName",
+        "ParameterValue": "UdagramProject"
+    },
+
+    {
+        "ParameterKey": "DesiredCap",
+        "ParameterValue": "1"
+    }
+]
