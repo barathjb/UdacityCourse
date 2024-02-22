@@ -1,3 +1,0 @@
-Error log:
-Unable to SSH into EC2 - Due to public route table not having egress rule to IG
-Unable to delete VPC - SG was associated
