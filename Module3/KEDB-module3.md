@@ -1,7 +1,9 @@
 ###Docker:
 
 Error in Ex4 when buiding admin image due to permission issue on /tmp - added command to give permissions to /tmp in Dockerfile
+
 Error in Ex4 when running admin container due to the DB_USERNAME reference missing - Hardocded the username to fix this
+
 Error in Ex4 when running admin container due to werkzeug version incomptibility with flask version - update the requirements file to install flask 3.0.2 instead of 2.2.2
 
 ------------------------------------------------------
@@ -10,6 +12,7 @@ Error in Ex4 when running admin container due to werkzeug version incomptibility
 
 # Error1: 
 Below error was seen when connecting to the EKS Cluster
+
 greymatter@greymatter:/mnt/d/Udacity/Module3$ kubectl cluster-info
 E0217 12:40:10.939192    1561 memcache.go:265] couldn't get current server API group list: the server has asked for the client to provide credentials
 
