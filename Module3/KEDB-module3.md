@@ -35,7 +35,9 @@ sudo ntpdate pool.ntp.org
 
 # Error3:
 greymatter@greymatter:/mnt/d/Udacity/Module3$ kubectl get pods
+
 NAME                      READY   STATUS             RESTARTS         AGE
+
 app-db-6854d755c6-d6m62   0/1     CrashLoopBackOff   93 (3m20s ago)   7h34m
 
 # Fix:
