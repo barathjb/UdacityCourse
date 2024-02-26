@@ -44,5 +44,5 @@ kubectl get pod <podname> -o yaml
 # get list of services
 kubectl get services
 
-#delete a service
+# delete a service
 kubectl delete service <service name>
