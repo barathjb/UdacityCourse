@@ -17,7 +17,9 @@ kubectl get deployment
 kubectl delete deployment <deployment name>
 
 kubectl get pods
+
 kubectl get services
+
 kubectl logs <pod name>
 
 # get containers in a pod
