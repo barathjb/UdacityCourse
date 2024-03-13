@@ -42,9 +42,7 @@ jobs:
         run: echo "This is not the main branch."
 
       - name: Run tests
-        run: |
-          npm init
-          npm install express
+        run: 
           npm test
 
 
@@ -72,9 +70,7 @@ jobs:
         run: echo "This is not the main branch."
 
       - name: Run tests
-        run: |
-          npm init
-          npm install express
+        run: 
           npm test  
 
       # - name: Debug message
