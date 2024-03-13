@@ -43,8 +43,7 @@ jobs:
 
       - name: Run tests
         run: 
-          npm init
-          npm test
+          npm init | npm test
 
       # - name: Debug message
       #   if: env.DEBUG == 'true'
@@ -71,8 +70,7 @@ jobs:
 
       - name: Run tests
         run: 
-          npm init
-          npm test
+          npm init | npm test
 
       # - name: Debug message
       #   if: env.DEBUG == 'true'
