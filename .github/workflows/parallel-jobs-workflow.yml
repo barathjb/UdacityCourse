@@ -49,9 +49,9 @@ jobs:
           npm test  
 
 
-      # - name: Debug message
-      #   if: env.DEBUG == 'true'
-      #   run: echo "Debugging is enabled."
+      - name: Debug message
+        if: env.DEBUG == 'true'
+        run: echo "Debugging is enabled."
 
   build-and-test-2:
     runs-on: ubuntu-latest
@@ -79,9 +79,9 @@ jobs:
           sed -ie 's/\&\& exit 1//g' package.json
           npm test  
 
-      # - name: Debug message
-      #   if: env.DEBUG == 'true'
-      #   run: echo "Debugging is enabled."
+      - name: Debug message
+        if: env.DEBUG == 'true'
+        run: echo "Debugging is enabled."
 
   post-build-actions:
     needs: [build-and-test-1, build-and-test-2]
