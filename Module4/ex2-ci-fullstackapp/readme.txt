@@ -1,0 +1,1 @@
+Folder ci-fullstackapp is a repository and should be setup as a repo for the workflows to kick in.

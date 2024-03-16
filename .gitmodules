@@ -1,0 +1,3 @@
+[submodule "Module4/Module4/ex2-ci-fullstackapp/ci-fullstackapp"]
+	path = Module4/Module4/ex2-ci-fullstackapp/ci-fullstackapp
+	url = https://github.com/barathjb/UdacityCourse
