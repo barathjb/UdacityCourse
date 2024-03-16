@@ -1,0 +1,49 @@
+name: Udacraft-workflow
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+  
+  # schedule:
+  #   - cron: '0 0 * * 0'
+
+# Use a matrix strategy to use Node.js versions 16.x and 18.x
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    steps:
+      # Check out the code from the repository.
+      - name: check out the code
+        uses: actions/checkout@v3
+
+      # Set up a Node.js environment using the specified node version.
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install the dependencies.
+      - name: install dependencies
+        run: cd backend && npm ci
+
+      # Run the tests.
+      - name: run tests
+        run: cd backend && npm test
+
+      # # Run the linter.
+      # - name:  run lint
+      #   run: cd backend && npm run lint
+
+      # Send a console message at completion.
+      - name: print message
+        run: |
+          echo "Hello ${{github.actor}}. You pushed to ${{github.repository}} at $(date)."
