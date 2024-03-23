@@ -1,0 +1,91 @@
+# Workflow name
+name: Backend Continuous Integration
+
+# Triggers for the workflow
+on:
+  # Manual trigger using the workflow_dispatch event
+  workflow_dispatch:
+  
+  
+  # Automatic trigger on pull request events targeting the main branch
+  pull_request:
+    branches:
+      - main
+      
+
+# Jobs defined in the workflow
+jobs:
+
+  backend-ci-test:
+    runs-on: ubuntu-latest
+    steps:
+      #checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      #setup python and cache
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+
+      #printing the current Python version
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      #Install pipenv
+      - name: Install pipenv
+        run: cd starter/backend && pip install pipenv
+      
+      #install dependencies
+      - name: install dependencies
+        run: cd starter/backend && pipenv install 
+
+      #Run tests
+      - name: Run tests    
+        run: cd starter/backend && pipenv run test 
+      
+  backend-ci-lint:
+    runs-on: ubuntu-latest
+    steps:
+      #checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      #setup python and cache
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      #printing the current Python version
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      #Install pipenv
+      - name: Install pipenv
+        run: cd starter/backend && pip install pipenv
+      
+      #install dependencies
+      - name: install dependencies
+        run: cd starter/backend && pipenv install --dev
+
+      #Run linter
+      - name: Run linter    
+        run: cd starter/backend && pipenv run flake8
+  
+  backend-ci-build:
+    needs: [backend-ci-test, backend-ci-lint]
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      #checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      #create docker build
+      - name: creating docker image    
+        run: cd starter/backend && docker build -t movie-app-backend .
+
+

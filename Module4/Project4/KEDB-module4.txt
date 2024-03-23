@@ -1,0 +1,17 @@
+Error1: 
+error: exec plugin: invalid apiVersion "client.authentication.k8s.io/v1alpha1 during running kubectl commands
+
+Reason:
+AWS CLI version was outadated
+
+Fix:
+Ran the following
+# Download 64 bit linux installer
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+# Or download ARM linux installer
+curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+
+# Next unzip the contents and update your awscliv2 version
+unzip awscliv2.zip
+sudo ./aws/install --bin-dir /usr/bin --install-dir /usr/aws --update
